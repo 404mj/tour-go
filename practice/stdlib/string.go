@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	realWorld()
+	see()
+	// realWorld()
 }
 
 //*** 在Go当中 string底层是用byte数组存的，并且是不可以改变的。
@@ -18,6 +19,11 @@ func see() {
 
 	skill := []rune(s) //变成rune切片
 	fmt.Println(len(skill))
+
+	sss1 := []byte("神")
+	fmt.Println(len(sss1))
+	sss2 := []rune("神")
+	fmt.Println(len(sss2))
 }
 
 //****rune类型是int32的别名，用于表示unicode character （https://www.cnblogs.com/moodlxs/p/4133121.html）

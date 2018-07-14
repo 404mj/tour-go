@@ -10,8 +10,8 @@ import (
  * 执行底层数组的指针，一个len字段一个cap字段
  * 切片操作并不复制切片指向的元素，它创建一个新的切片并*复用*原来切片底层的数组
  * so，通过新切片修改数据会影响到原先的切片
- *
- *
+ * 
+ * 函数之间的传递修改会改变值！类比java 集合
  */
 
 /**
@@ -91,14 +91,23 @@ func deepin() {
  * 猜不到结果系列！
  */
 func wired() {
-	vals := make([]int, 5)
+	vals := make([]int, 5)//
+	// vals :=[]int{}//比较以上两种方式的异同
 	// vals2 := make([]int)  // 这样是ERROR！，可以不指定容量，但是长度是必须指定！！！！
 	fmt.Println(vals)
 	for i := 0; i < 5; i++ {
-		vals = append(vals, i)
+		// vals = append(vals, i)
+		vals[i] = i;
 	}
 
 	fmt.Println(vals)
+}
+
+func param(s *[]int) {
+	(*s)[2] = 5;
+}
+func param2(s []int) {
+	s[2] = 99
 }
 
 func main() {
@@ -108,5 +117,9 @@ func main() {
 	//函数间传递切片是值传递，复制的是切片的数据结构，而不是底层数组，
 	//所以不需要指针，函数中的修改会作用到原始切片上的！
 
-	deepin()
+	// deepin()
+	s := []int{1,2,3}
+	// param(&s)
+	param2(s)
+	fmt.Printf("values is %v", s)
 }

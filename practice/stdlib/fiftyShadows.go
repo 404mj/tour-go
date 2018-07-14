@@ -64,6 +64,7 @@ func twoDSlice() {
 		fmt.Println()
 	}
 
+// ############update 2018年07月14日15:37:51 这里问题的关键是make方式的使用或者说是二维slice的声明方式！！！！！不同而采用不同的方式初始化@##############
 	//这个问题，让我反思之前学习slice，再次深入了解了slice！！！赋值二维slice坑很多啊啊啊啊！
 	// 先声明再赋值初始化
 	// var slice2 = make([][]int, 0, 3) // len()=0,cap=3
@@ -95,11 +96,11 @@ func init2dslice(s [][]int) [][]int {
 	for i := 0; i < 3; i++ {
 		ss := make([]int, 0, 5)
 		for j := 0; j < 5; j++ {
-			ss = append(ss, i+j)
-			// ss[j] = i + j//这样不行！！
+			// ss = append(ss, i+j)
+			ss[j] = i + j//这样不行！！
 		}
-		s = append(s, ss)
-		// s[i] = ss//这样不行！
+		// s = append(s, ss)
+		s[i] = ss
 	}
 	return s
 }
@@ -192,12 +193,14 @@ func (p *field) print() {
 
 func forClosures1() {
 
-	data1 := []field{{"one"}, {"two"}, {"three"}}
+	data1 := []*field{{"one"}, {"two"}, {"three"}}
 
 	for _, v := range data1 {
-		// v := v//不加这个不行，这种方式还不能传参数！！
-		go v.print()
+		// a := v//不加这个不行，这种方式还不能传参数！！
+		fmt.Println("---" + v.name)
 		// time.Sleep(1 * time.Second)
+		// go a.print()
+		go v.print()
 	}
 	time.Sleep(1 * time.Second)
 	//####################################
@@ -219,7 +222,7 @@ func forClosures() {
 		go v.print()
 	}
 
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 }
 
 func deferFuncArgCall() {
@@ -291,7 +294,7 @@ func main() {
 	//声明一个已有类型的类型，该类型不会继承已有类型的方法
 	//如果实在是需要这个类型里面的方法，可以type一个struct或者interface
 
-	// forClosures1()
+	forClosures1()
 	// forClosures()
 
 	// deferFuncArgCall()

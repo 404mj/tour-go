@@ -14,3 +14,6 @@ func main() {
 	gopkglala.Say()
 	gopkglala.Say2()
 }
+
+// package 名称
+// 这里的 名称 即为导入该包时使用的默认名称。 （一个包中的所有文件都必须使用相同的 名称。）
